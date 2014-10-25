@@ -14,3 +14,5 @@ jQuery-sticky
 	* callback{function}:吸住顶部之后的回调函数
 
 使用后如同百度搜索拦的这个效果:
+
+![](https://raw.githubusercontent.com/backToNature/jQuery-sticky/1.0.0/demo/img/Snip20141025_2.png)
