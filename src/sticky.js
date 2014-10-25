@@ -5,6 +5,7 @@
  *
  * @param 参数列表
  * 		top : {number} 	距离顶部多少像素时吸住顶部
+ * 	    callback: {function} 吸住之后的回调函数
  */
 
 (function( $ ){
@@ -18,8 +19,7 @@
                          * 实现滚动效果
                          */
                         render: function(kind,value){
-                            // 标记已经绑定sticky的元素
-                                $this.data("bindSticky",true);
+
 
                             // 记录元素原来的位置
                             var originTop = $this._originTop = $this.offset().top,
@@ -50,11 +50,27 @@
                                     }
                                 });
                             } else {
+
+
                                 $(window).on("scroll",function(){
                                     if($(window).scrollTop() >= originTop - value){
                                         $this.css(fixedStyle);
+
+                                        //执行回调
+                                        if(options.callback && !$this.data("bindSticky")){
+                                            options.callback();
+                                        }
+
+                                        // 标记已经绑定sticky的元素
+                                        $this.data("bindSticky",true);
+
                                     } else {
+
                                         $this.css($this._originStyles);
+
+                                        // 取消标记已经绑定sticky的元素
+                                        $this.data("bindSticky",false);
+
                                     }
                                 });
                             }
