@@ -11,18 +11,17 @@
             text-align: center;
             font-size: 30px;
             /*position: sticky;*/
-            width: 100%;
+            display: inline-block;
+            margin-left: 300px;
+            width: 200px;
         }
         .content {
             height: 2000px;
             background: red;
         }
         .tt {
-            height: 500px;
+            height: 1000px;
             background: #ff0f26;
-        }
-        .st2 {
-
         }
     </style>
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
@@ -33,13 +32,17 @@
 <div class="content">
 
 </div>
-<script src="../src/sticky.js"></script>
+<!--<script src="../src/sticky.js"></script>-->
+<script src="../src/sticky-new.js"></script>
 <script>
     $(function(){
-        $(".st").sticky({
-            top: 50,
-            callback: function(){
-                alert("xx");
+
+        var xx = new Sticky({
+            el: '.st',
+            bottom: 0,
+            target: null,
+            callback: function () {
+//                alert(1);
             }
         });
     });

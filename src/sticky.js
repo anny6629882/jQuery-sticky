@@ -7,7 +7,6 @@
  * 		top : {number} 	距离顶部多少像素时吸住顶部
  * 	    callback: {function} 吸住之后的回调函数
  */
-
 (function( $ ){
     var methods = {
         init : function( options ) {
@@ -19,62 +18,61 @@
                          * 实现滚动效果
                          */
                         render: function(kind,value){
-
-
                             // 记录元素原来的位置
                             var originTop = $this._originTop = $this.offset().top,
                                 originLeft = $this._originLeft = $this.offset().left;
-
                             var fixedStyle = {
                                 position: "fixed",
                                 top: value,
-                                left: originLeft
-                            }
-
+                                left: originLeft,
+                                margin: 0
+                            };
                             // 保存元素原来的样式
                             $this._originStyles = {
                                 position: $this.css("position"),
                                 top: $this.css("top"),
-                                left: $this.css("left")
+                                left: $this.css("left"),
+                                margin: $this.css("margin")
                             };
-
                             // 监听滚动事件
                             if(kind == "bottom"){
                                 fixedStyle.top = "auto";
                                 fixedStyle.bottom = value;
                                 $(window).on("scroll",function(){
-                                    if($(window).scrollTop() >= originTop + $(window).height()){
+                                    console.log(originTop);
+                                    console.log($(window).scrollTop());
+
+                                    if($(window).scrollTop() >= originTop - $(window).height()){
                                         $this.css(fixedStyle);
-                                    } else {
-                                        $this.css($this._originStyles);
-                                    }
-                                });
-                            } else {
-
-
-                                $(window).on("scroll",function(){
-                                    if($(window).scrollTop() >= originTop - value){
-                                        $this.css(fixedStyle);
-
                                         //执行回调
                                         if(options.callback && !$this.data("bindSticky")){
                                             options.callback();
                                         }
-
                                         // 标记已经绑定sticky的元素
                                         $this.data("bindSticky",true);
-
                                     } else {
-
                                         $this.css($this._originStyles);
-
                                         // 取消标记已经绑定sticky的元素
                                         $this.data("bindSticky",false);
-
+                                    }
+                                });
+                            } else {
+                                $(window).on("scroll",function(){
+                                    if($(window).scrollTop() >= originTop - value){
+                                        $this.css(fixedStyle);
+                                        //执行回调
+                                        if(options.callback && !$this.data("bindSticky")){
+                                            options.callback();
+                                        }
+                                        // 标记已经绑定sticky的元素
+                                        $this.data("bindSticky",true);
+                                    } else {
+                                        $this.css($this._originStyles);
+                                        // 取消标记已经绑定sticky的元素
+                                        $this.data("bindSticky",false);
                                     }
                                 });
                             }
-
                         },
                         /**
                          * 初始化
@@ -88,7 +86,8 @@
                                 return;
                             }
                             // 如果没有设置top与bottom,则默认top为0
-                            if(!top && bottom){
+                            if(!top && bottom >= 0){
+                                console.log(1);
                                 kind = "bottom";                // sticky类型: bottom
                                 value = bottom;
                             } else {
@@ -104,7 +103,7 @@
         destroy : function( ) {
             return this.each(function(){
                 $(window).unbind('.sticky');
-            })
+            });
         }
     };
     $.fn.sticky = function( method ) {
