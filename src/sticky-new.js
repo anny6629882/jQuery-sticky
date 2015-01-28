@@ -11,11 +11,10 @@ window.Sticky = (function () {
      */
     function Sticky(config) {
         var i;
-
+        // 参数检测
         if (config.el && typeof config.el == 'string') {
-            this.el = config.el;
+            this.el = $(config.el);
         }
-
         for (i in config) {
             if (i == 'top' || i == 'bottom') {
                 if (typeof config[i] == 'number' || typeof config[i] == 'string') {
@@ -39,7 +38,7 @@ window.Sticky = (function () {
         this.init();
     }
     Sticky.prototype.init = function () {
-        var el = $(this.el),
+        var el = this.el,
             target = this.target,
             type = this.type,
             value = this[type],
@@ -55,7 +54,6 @@ window.Sticky = (function () {
             originTop = el._originTop = el.offset().top - target.offset().top;
             originLeft = el._originLeft = el.offset().left - target.offset().left;
         }
-
         // 需要添加的样式
         var fixedStyle = {
             position: "fixed",
@@ -70,6 +68,7 @@ window.Sticky = (function () {
             left: el.css("left"),
             margin: el.css("margin")
         };
+        console.log(el);
         // 监听滚动事件
         var currentScroll;
         $(target).on("scroll",function(){
@@ -79,17 +78,26 @@ window.Sticky = (function () {
                 el.css(fixedStyle);
                 //执行回调
                 if(callback && !el.data("bindSticky")){
-                    callback();
+                    callback(true);
                 }
                 // 标记已经绑定sticky的元素
                 el.data("bindSticky",true);
             } else {
                 el.css(el._originStyles);
+                if(callback && el.data("bindSticky")){
+                    callback(false);
+                }
                 // 取消标记已经绑定sticky的元素
                 el.data("bindSticky",false);
             }
         });
     };
-
+    Sticky.prototype.destory = function () {
+        var el = this.el,
+            target = this.target;
+        $(target).unbind('scroll');
+        el.css(el._originStyles);
+        el.data("bindSticky",false);
+    };
     return Sticky;
 })();

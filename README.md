@@ -7,18 +7,36 @@ jQuery-sticky
 
 当元素滚动快要超出视区的时候，根据修改参数来固定住元素，并支持回调。
 
-## 使用方法
+## 初始化
+---
 
 ```
-var sticky = new Sticky({
-            el: selector,
-            top: 40,
-            callback: function () {
-               alert(1);
-            }
+// 创建一个 sticky 元素
+    var sticky = new Sticky({
+            el: '#id',
+            top: 20, 
+            callback: function(status) { 
+              }
         });
 ```
 
-* el {string}: 吸顶或吸底的元素,写jquery选择器就行
-* top || bottom {number}: 吸住的时候距离顶部或底部的px高度
-* callback {function}: 吸住的时候处罚的回调
+## API
+---
+
+* ***el*** {String}
+
+	需要跟随滚动的目标元素
+
+* ***top*** {Number}
+
+	基于顶部跟随滚动时设置；当元素距离当前可视窗口顶部的距离等于这个值时，开始触发跟随状态。
+
+* ***bottom*** {Number}
+
+	基于底部跟随滚动时设置；当元素距离当前可视窗口底部的距离等于这个值时，开始触发跟随状态。
+
+* ***callback*** {Function}
+
+	更改状态的回调函数，具有一个参数 status, 为 true 表示是 stick 状态, 为 false 为 unstick 状态。
+
+

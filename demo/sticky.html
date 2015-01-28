@@ -54,17 +54,14 @@
 <script src="../src/sticky-new.js"></script>
 <script>
     $(function(){
-        // var warpper = $('.warpper');
-        // warpper.on('scroll', function() {
-        //     console.log(warpper.scrollTop());
-        // });
         var xx = new Sticky({
             el: '.st',
             top: 40,
-            callback: function () {
-               alert(1);
+            callback: function (status) {
+                
             }
         });
+        xx.destory();
     });
 </script>
 </body>
