@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title>sticky</title>
     <style>
-        header {
+        .header {
             height: 100px;
             background: #1c4864;
             color: #fff;
@@ -41,11 +41,9 @@
 </head>
 <body>
         <div class="tt"></div>
-    <div class="warpper">
-        <div class="test1"></div>
-        <div class="test2"></div>
-    </div>
-        <header class ="st">sticky</header>
+
+        <div class ="header st">sticky</div>
+        <div class ="header st1">sticky</div>
 
 <div class="content">
 
@@ -61,7 +59,14 @@
                 
             }
         });
-        xx.destory();
+        var xxx = new Sticky({
+            el: '.st1',
+            top: 40,
+            callback: function (status) {
+
+            }
+        });
+        xxx.destory();
     });
 </script>
 </body>
