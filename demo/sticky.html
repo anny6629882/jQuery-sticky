@@ -19,6 +19,19 @@
             height: 2000px;
             background: red;
         }
+        .warpper {
+            background: blue;
+            height :600px;
+            overflow: scroll;
+        }
+        .test1 {
+            background: orange;
+            height: 700px;
+        }
+        .test2 {
+            background: green;
+            height: 700px;
+        }
         .tt {
             height: 1000px;
             background: #ff0f26;
@@ -27,8 +40,13 @@
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
-<div class="tt"></div>
-<header class ="st">sticky</header>
+        <div class="tt"></div>
+    <div class="warpper">
+        <div class="test1"></div>
+        <div class="test2"></div>
+    </div>
+        <header class ="st">sticky</header>
+
 <div class="content">
 
 </div>
@@ -36,13 +54,15 @@
 <script src="../src/sticky-new.js"></script>
 <script>
     $(function(){
-
+        // var warpper = $('.warpper');
+        // warpper.on('scroll', function() {
+        //     console.log(warpper.scrollTop());
+        // });
         var xx = new Sticky({
             el: '.st',
-            bottom: 0,
-            target: null,
+            top: 40,
             callback: function () {
-//                alert(1);
+               alert(1);
             }
         });
     });

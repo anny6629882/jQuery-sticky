@@ -28,7 +28,7 @@ window.Sticky = (function () {
         if (config.target && typeof config.target == 'string') {
             this.target = config.target;
         } else {
-            this.target = 'body';
+            this.target = window;
         }
 
         if (typeof config.callback == 'function') {
@@ -40,13 +40,22 @@ window.Sticky = (function () {
     }
     Sticky.prototype.init = function () {
         var el = $(this.el),
-            target = $(this.target),
+            target = this.target,
             type = this.type,
             value = this[type],
             callback = this.callback;
+
+        var originTop,
+            originLeft;
         // 纪录元素初始位置
-        var originTop = el._originTop = el.offset().top,
+        if (target === window) {
+            originTop = el._originTop = el.offset().top;
             originLeft = el._originLeft = el.offset().left;
+        } else {
+            originTop = el._originTop = el.offset().top - target.offset().top;
+            originLeft = el._originLeft = el.offset().left - target.offset().left;
+        }
+
         // 需要添加的样式
         var fixedStyle = {
             position: "fixed",
@@ -63,9 +72,10 @@ window.Sticky = (function () {
         };
         // 监听滚动事件
         var currentScroll;
-        $(window).on("scroll",function(){
-            currentScroll = (type == 'top')? originTop - value : originTop - $(window).height();
-            if($(window).scrollTop() >= currentScroll){
+        $(target).on("scroll",function(){
+            currentScroll = (type == 'top')? originTop - value : originTop - $(target).height();
+            console.log(currentScroll);
+            if($(target).scrollTop() >= currentScroll){
                 el.css(fixedStyle);
                 //执行回调
                 if(callback && !el.data("bindSticky")){
