@@ -1,5 +1,5 @@
 /**
- * Created by wenshui on 15/1/26.
+ * Created by guohao on 15/1/26.
  * @base jQuery
  */
 

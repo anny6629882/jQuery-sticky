@@ -39,4 +39,6 @@ jQuery-sticky
 
 	更改状态的回调函数，具有一个参数 status, 为 true 表示是 stick 状态, 为 false 为 unstick 状态。
 
+#### [demo](http://backtonaturedemo.github.io/frontend/case/demo/jQuerySticky/sticky.html)
+
 
